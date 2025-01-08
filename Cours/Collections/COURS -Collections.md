@@ -8,6 +8,7 @@
    - [Ajouter plusieurs éléments](#ajouter-plusieurs-éléments-à-une-liste)
    - [Supprimer un élément](#supprimer-un-élément-dune-liste)
    - [Listes et fonctions](#listes-et-fonctions--modifications-globales)
+   - [Méthodes utiles](#méthodes-utiles-pour-les-listes)
 3. [Slices](#les-slices)
 4. [Dictionnaires](#le-dictionnaire)
    - [Définition et syntaxe](#définition-et-syntaxe)
