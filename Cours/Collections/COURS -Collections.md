@@ -974,3 +974,217 @@ questionnaire = (
    - La fonction `lancer_questionnaire` parcourt toutes les questions et calcule un score final pour l'utilisateur.
 
 Avec ce programme, vous avez un **questionnaire interactif** qui gère les erreurs, affiche dynamiquement les options, et fournit un score final à l'utilisateur.
+
+# Les Ensembles (Sets) en Python
+
+Les **ensembles (sets)** sont une structure de données en Python conçue pour stocker des éléments uniques de manière non ordonnée. Ils sont particulièrement utiles pour :
+
+- Éliminer les **doublons** dans une collection.
+- Effectuer des **opérations d'ensemble** comme l'union, l'intersection et la différence.
+
+---
+
+## Définition et syntaxe
+
+Un ensemble est défini avec des **accolades `{}`** ou la fonction `set()`. Contrairement aux listes et aux tuples, les ensembles **n'acceptent pas les doublons**.
+
+```Python
+# Définir un ensemble
+fruits = {"pomme", "banane", "orange", "pomme"}  # Les doublons sont ignorés
+print(fruits)  # Affichera : {'pomme', 'banane', 'orange'}
+
+# Création d'un ensemble vide
+ensemble_vide = set()  # Utilisez set() et non {}
+```
+
+---
+
+## Caractéristiques des ensembles
+
+1. **Non ordonnés** : Les éléments ne sont pas indexés, donc il est impossible d'accéder directement à un élément par un index comme pour les listes ou tuples.
+
+```Python
+fruits = {"pomme", "banane", "orange"}
+# fruits[0]  # Provoquerait une erreur
+```
+
+2. **Unicité** : Les doublons sont automatiquement supprimés.
+
+```Python
+nombres = {1, 2, 3, 2, 4}
+print(nombres)  # Affichera : {1, 2, 3, 4}
+```
+
+3. **Mutabilité partielle** : Les ensembles eux-mêmes sont modifiables (on peut ajouter ou supprimer des éléments), mais leurs éléments doivent être immuables (comme des nombres, chaînes, ou tuples).
+
+```Python
+fruits = {"pomme", "banane"}
+fruits.add("orange")  # Ajoute un élément
+print(fruits)  # {'pomme', 'banane', 'orange'}
+```
+
+---
+
+## Opérations courantes sur les ensembles
+
+### Ajouter ou supprimer des éléments
+
+1. **Ajouter un élément avec `add()`** :
+
+```Python
+ensemble = {1, 2, 3}
+ensemble.add(4)
+print(ensemble)  # {1, 2, 3, 4}
+```
+
+2. **Supprimer un élément avec `remove()`** :
+
+```Python
+ensemble.remove(2)
+print(ensemble)  # {1, 3, 4}
+```
+
+3. **Supprimer un élément en toute sécurité avec `discard()`** :
+
+- Contrairement à `remove()`, cette méthode ne provoque pas d'erreur si l'élément n'existe pas.
+
+```Python
+ensemble.discard(5)  # Ne fait rien si 5 n'est pas dans l'ensemble
+```
+
+4. **Supprimer tous les éléments avec `clear()`** :
+
+```Python
+ensemble.clear()
+print(ensemble)  # Affiche : set()
+```
+
+---
+
+### Opérations d'ensemble
+
+1. **Union (`|` ou `union()`)** :
+   Combine les éléments de deux ensembles.
+
+```Python
+ensemble1 = {1, 2, 3}
+ensemble2 = {3, 4, 5}
+union = ensemble1 | ensemble2
+print(union)  # {1, 2, 3, 4, 5}
+```
+
+2. **Intersection (`&` ou `intersection()`)** :
+   Récupère les éléments communs à deux ensembles.
+
+```Python
+intersection = ensemble1 & ensemble2
+print(intersection)  # {3}
+```
+
+3. **Différence (`-` ou `difference()`)** :
+   Récupère les éléments présents dans le premier ensemble mais pas dans le second.
+
+```Python
+difference = ensemble1 - ensemble2
+print(difference)  # {1, 2}
+```
+
+4. **Différence symétrique (`^` ou `symmetric_difference()`)** :
+   Récupère les éléments présents dans un seul des deux ensembles.
+
+```Python
+sym_diff = ensemble1 ^ ensemble2
+print(sym_diff)  # {1, 2, 4, 5}
+```
+
+---
+
+## Conversion entre collections
+
+Python permet de convertir facilement les **listes**, **tuples**, et **dictionnaires** en **ensembles**, et inversement.
+
+### Convertir une liste en ensemble
+
+```Python
+nombres = [1, 2, 2, 3, 4]
+ensemble = set(nombres)
+print(ensemble)  # {1, 2, 3, 4}
+```
+
+### Convertir un ensemble en liste ou tuple
+
+```Python
+ensemble = {1, 2, 3}
+liste = list(ensemble)
+tuple_ = tuple(ensemble)
+print(liste)  # [1, 2, 3]
+print(tuple_)  # (1, 2, 3)
+```
+
+### Extraire les clés d'un dictionnaire sous forme d'ensemble
+
+```Python
+dictionnaire = {"a": 1, "b": 2, "c": 3}
+cle_set = set(dictionnaire.keys())
+print(cle_set)  # {'a', 'b', 'c'}
+```
+
+---
+
+# Cas pratiques
+
+### Exemple 1 : Suppression des doublons
+
+Les ensembles sont parfaits pour éliminer les doublons dans une collection.
+
+```Python
+noms = ["Alice", "Bob", "Alice", "Eve", "Bob"]
+unique_noms = set(noms)
+print(unique_noms)  # {'Alice', 'Bob', 'Eve'}
+```
+
+---
+
+### Exemple 2 : Comparer deux listes
+
+Avec les ensembles, on peut facilement trouver les éléments communs ou différents entre deux listes.
+
+```Python
+liste1 = [1, 2, 3, 4]
+liste2 = [3, 4, 5, 6]
+
+# Convertir en ensembles
+set1 = set(liste1)
+set2 = set(liste2)
+
+# Intersection
+print(set1 & set2)  # {3, 4}
+
+# Différence
+print(set1 - set2)  # {1, 2}
+```
+
+---
+
+### Exemple 3 : Vérifier la présence d'un élément
+
+Les ensembles permettent une recherche rapide grâce à leur structure.
+
+```Python
+voyelles = {"a", "e", "i", "o", "u"}
+print("e" in voyelles)  # True
+print("z" in voyelles)  # False
+```
+
+---
+
+## Résumé : Pourquoi utiliser les ensembles ?
+
+| **Cas d'utilisation**                             | **Avantage des ensembles**                             |
+| ------------------------------------------------- | ------------------------------------------------------ |
+| Suppression des doublons                          | Les ensembles suppriment automatiquement les doublons. |
+| Opérations d'ensemble (union, intersection, etc.) | Simplifie les calculs mathématiques sur les ensembles. |
+| Recherche rapide                                  | Recherche plus rapide que dans les listes.             |
+| Comparaisons                                      | Permet de comparer facilement deux collections.        |
+
+Les ensembles sont un excellent choix lorsque vous travaillez avec des données uniques ou avez besoin d'effectuer des opérations d'ensemble. 🎯
