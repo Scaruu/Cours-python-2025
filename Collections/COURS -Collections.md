@@ -1,0 +1,752 @@
+# PYTHON COLLECTIONS
+
+# TUPLES
+
+Les **tuples** font partie des collections en Python (comme les tableaux ou les listes).  
+Un tuple est une **collection ordonnée et immuable** utilisée pour contenir plusieurs éléments. Contrairement aux listes, les tuples ne peuvent pas être modifiés après leur création, ce qui les rend idéaux pour stocker des données constantes ou des ensembles d’informations que l’on ne souhaite pas modifier.
+
+Exemple : Une chaîne de caractères est en réalité un Tuple, pour <code>fruit = "Pomme"</code> le premier caratère s'affichera en faisant <code>fruit[0]</code>
+
+Le cas de <code>range</code> : range est en réalité un Tuple
+
+```python
+for i in range(0, 5)
+
+valeurs = range(0, 5) # Un Tuple contenant (0,1,2,3,4)
+print(valeurs[-1]) # Affichera 4 car il contient des valeurs de 0 à 4
+```
+
+### Exemple 1 :
+
+```python
+personnes = ("Mélanie", "Jean", "Martin", "Alice") # Tuple car entre ()
+print(len(personnes)) # Affichera la longueur/nombre d'éléments du Tuple : 4
+print(personnes[0]) # Affichera l'élément à l'index [0] fonctionne aussi sur les listes : Mélanie
+print(personnes[-1]) # Affichera le dernier élémént du Tuple: Alice
+
+# Affiche le nom de la personne à l'index i correspondant à chaque tour
+# Mélanie
+# Jean
+# Martin
+# Alice
+for i in range(0, len(personnes)):
+    print(personnes[i])
+
+# On peut aussi écrire comme ça :
+for i in personnes:
+    print(i)
+
+# Ou comme ceci :
+for personne in personnes:
+    print(personne)
+```
+
+### Explications :
+
+- **Ordonné** : Les éléments du tuple sont rangés dans un ordre spécifique, ce qui permet d’y accéder à l’aide de leur index.  
+  Exemple : `personnes[0]` retourne `"Mélanie"`.
+
+- **Immuable** : Une fois créé, il est impossible d’ajouter, de supprimer ou de modifier les éléments d’un tuple.
+
+- **Utile pour les données constantes** : Les tuples sont utilisés lorsqu'on souhaite s'assurer que les données restent inchangées, comme des coordonnées géographiques ou des constantes.
+
+- **Différence avec les listes** : Contrairement aux listes, les tuples sont plus rapides et consomment moins de mémoire.
+
+- **Types mélangés** : Un tuple peut contenir des éléments de différents types.  
+  Exemple : `mon_tuple = (42, "Python", 3.14)`.
+
+En résumé, les tuples sont parfaits pour des données fixes et permettent une manipulation efficace grâce à leur immuabilité.
+
+# LISTES
+
+```python
+personnes = ["Mélanie", "Jean", "Martin", "Alice"] # Liste car entre []
+```
+
+## Ajouter ou retirer un élément
+
+Pour **ajouter un élément** à une liste, on utilise la méthode `append()` :
+
+```python
+nom_liste.append(élément_à_ajouter)
+```
+
+Pour **retirer un élément**, plusieurs options s'offrent à nous :
+
+1. Utiliser le mot-clé `del` pour supprimer un élément à un **index précis** :
+
+   ```python
+   del nom_liste[index]
+   ```
+
+2. Utiliser la méthode `remove()` pour supprimer un **élément spécifique** :
+   ```python
+   nom_liste.remove(élément)
+   ```
+   Attention : Cette méthode supprime uniquement la **première occurrence** de l'élément.
+
+### Suppression avec une boucle
+
+Si tu veux supprimer plusieurs éléments d'une liste à l'aide d'une boucle, il est **préférable de commencer par la fin de la liste** (en utilisant l'index `-1`).  
+Cela permet d'éviter des erreurs liées à la modification des index pendant la suppression des éléments.
+
+**Exemple :**
+
+```python
+ma_liste = [1, 2, 3, 4, 5]
+
+# ici le -1 supplémentaire permet d'indiquer le sens de la boucle
+for i in range(len(ma_liste) - 1, -1, -1):  # Boucle de la fin vers le début
+    del ma_liste[i]
+print(ma_liste)  # Affiche : []
+#ou
+for personne in reversed(personnes):  # reversed renvoie les éléments dans l'ordre inverse
+    personnes.remove(personne)
+print(ma_liste)  # Affiche : []
+```
+
+## Listes et Fonctions : Modifications globales
+
+Contrairement à une variable simple (comme un entier ou un float), les **listes** passées en paramètre à une fonction sont modifiées globalement si elles sont altérées dans la fonction. Cela est dû à la manière dont Python gère les références des objets mutables.
+
+### Exemple :
+
+```python
+def modifier_valeur(a):
+     a[0] = 10
+
+test = [1, 2, 3, 4]
+print(test)  # Affichera : [1, 2, 3, 4]
+modifier_valeur(test)
+print(test)  # Affichera : [10, 2, 3, 4]
+```
+
+### Explications :
+
+1. **Les listes sont des objets mutables :**
+
+   - En Python, une liste est un **objet mutable**, ce qui signifie qu’elle peut être modifiée directement.
+   - Lorsqu’une liste est passée en paramètre à une fonction, ce n’est pas une copie de la liste qui est transmise, mais une **référence** vers l'objet d'origine.
+
+2. **Impact des modifications :**
+
+   - Dans l'exemple, lorsque `modifier_valeur` modifie `a[0]`, elle modifie en réalité la liste originale référencée par `test`.
+
+3. **Différence avec une variable simple :**
+
+   - Les variables simples comme les entiers ou les floats sont des **objets immuables**. Lorsqu'elles sont passées en paramètre, une **copie** de leur valeur est utilisée, et leur valeur d'origine reste inchangée.  
+     Exemple avec une variable simple :
+
+   ```python
+   def modifier_variable(x):
+       x = 10
+
+   y = 5
+   print(y)  # Affichera : 5
+   modifier_variable(y)
+   print(y)  # Affichera : 5 (pas modifié)
+   ```
+
+4. **Pourquoi cela se produit-il ?**
+   - Les objets mutables (comme les listes) transmettent leur **référence mémoire**, pas une copie.
+   - Les objets immuables (comme les entiers) transmettent leur **valeur**, donc toute modification dans la fonction n'affecte pas l'objet d'origine.
+
+---
+
+### **Résumé :**
+
+- Les listes sont modifiées globalement lorsqu'elles sont passées en paramètre et modifiées dans une fonction.
+
+- Pour éviter ce comportement, tu peux utiliser :
+
+  - Une **copie superficielle** avec `copy()` ou `list()`.
+
+    ```python
+    originale = [1, 2, 3]
+    copie_avec_copy = originale.copy()
+    copie_avec_list = list(originale)
+    print(copie_avec_copy)  # [1, 2, 3]
+    print(copie_avec_list)  # [1, 2, 3]
+    ```
+
+    Ces deux méthodes sont équivalentes pour des listes simples.  
+    Utiliser `copy()` est généralement recommandé car elle est plus explicite.
+
+  - Une **tranche** pour créer une copie superficielle :
+
+    ```python
+    originale = [1, 2, 3]
+    copie = originale[:]
+    print(copie)  # [1, 2, 3]
+    ```
+
+  - Une **copie profonde** avec `copy.deepcopy()` si la liste contient des éléments imbriqués.
+
+    ```python
+    import copy
+
+    originale = [[1, 2], [3, 4]]
+    copie_profonde = copy.deepcopy(originale)
+
+    copie_profonde[0][0] = 10
+    print(originale)  # [[1, 2], [3, 4]] (inchangée)
+    print(copie_profonde)  # [[10, 2], [3, 4]] (modifiée)
+    ```
+
+### **Pourquoi privilégier `copy()` ?**
+
+- **Plus explicite :** Le lecteur comprend immédiatement que tu veux copier la liste.
+- **Modernité :** Méthode standard et intuitive introduite dans Python 3.
+- **Lisibilité pédagogique :** Idéal pour les explications ou les cours, car il met l'intention en évidence.
+
+---
+
+### **Quand utiliser quoi ?**
+
+- Utilise `copy()` pour une copie simple et lisible.
+- Utilise `list()` ou `[:]` si tu es déjà familier avec ces méthodes.
+- Utilise `copy.deepcopy()` pour des listes imbriquées ou complexes.
+
+## Méthodes utiles pour les listes
+
+| **Méthode**        | **Description**                                                  | **Exemple**                               |
+| ------------------ | ---------------------------------------------------------------- | ----------------------------------------- |
+| `append(x)`        | Ajoute l’élément `x` à la fin de la liste                        | `ma_liste.append(5)`                      |
+| `extend(iterable)` | Ajoute les éléments d’un itérable (liste, tuple, etc.)           | `ma_liste.extend.extend(["Zoé", "Paul"])` |
+| `insert(i, x)`     | Insère `x` à l’index `i`                                         | `ma_liste.extend.insert(0, "Jean")`       |
+| `remove(x)`        | Supprime la **première occurrence** de `x`                       | `ma_liste.remove(3)`                      |
+| `pop([i])`         | Supprime et renvoie l’élément à l’index `i` (dernier par défaut) | `ma_liste.pop(2)`                         |
+| `sort()`           | Trie la liste **en place** par ordre alphabétique 0-9 A-Z a-z    | `ma_liste.sort()`                         |
+| `reverse()`        | Inverse l’ordre des éléments de la liste                         | `ma_liste.reverse()`                      |
+| `index(x)`         | Renvoie l’index de la première occurrence de `x`                 | `ma_liste.index(4)`                       |
+| `count(x)`         | Compte le nombre d’occurrences de `x` dans la liste              | `ma_liste.count(4)`                       |
+| `copy()`           | Renvoie une copie superficielle de la liste                      | `nouvelle_liste = ma_liste.copy()`        |
+| `clear()`          | Supprime tous les éléments de la liste                           | `ma_list.clear()`                         |
+
+### Résumé des bonnes pratiques :
+
+1. Pour ajouter :
+
+   - **Un élément** : `append(x)`
+   - **Plusieurs éléments** : `extend()` ou `+=`
+   - **À une position** : `insert(index, valeur)`
+
+2. Pour supprimer :
+   - **Par index** : `del`
+   - **Par valeur** : `remove(x)`
+   - **Dernier élément** : `pop()`
+
+- **Supprimer un élément à un index précis** : Utilise `del`.
+- **Supprimer un élément spécifique** : Utilise `remove()`.
+- **Suppression en boucle** :
+
+  - Si tu veux supprimer des éléments en manipulant les **index**, parcours la liste **en partant de la fin** avec `range`.
+  - Si tu veux supprimer des éléments sans utiliser d'index, parcours la liste **en sens inverse** avec `reversed()` :
+
+    ```python
+    for element in reversed(ma_liste):
+        ma_liste.remove(element)
+    ```
+
+Cette approche est fiable et te protège contre les bugs lorsque tu modifies une liste dans une boucle, en évitant les problèmes liés au décalage des index.
+
+## Différence entre Listes et Tuples
+
+En Python, **les listes** et **les tuples** sont des collections permettant de stocker plusieurs éléments, mais ils ont des caractéristiques et des usages différents.
+
+### 1. **Mutabilité**
+
+- **Listes** : Modifiables (mutables). Les éléments d'une liste peuvent être ajoutés, supprimés ou modifiés après sa création.
+  ```python
+  ma_liste = [1, 2, 3]
+  ma_liste[0] = 10  # Modification possible
+  print(ma_liste)  # [10, 2, 3]
+  ```
+- **Tuples** : Non modifiables (immuables). Une fois créé, un tuple ne peut plus être modifié.
+  ```python
+  mon_tuple = (1, 2, 3)
+  # mon_tuple[0] = 10  # Erreur : impossible de modifier un tuple
+  ```
+
+---
+
+### 2. **Performance**
+
+- **Listes** : Moins rapides et consomment plus de mémoire que les tuples, car elles doivent gérer leur mutabilité.
+- **Tuples** : Plus rapides et consomment moins de mémoire, ce qui les rend idéaux pour des données constantes.
+
+---
+
+### 3. **Utilisation**
+
+- **Listes** : Utilisées lorsque les données doivent être modifiées ou manipulées fréquemment.
+
+  ```python
+  fruits = ["pomme", "banane", "cerise"]
+  fruits.append("orange")  # Ajout d'un élément
+  print(fruits)  # ["pomme", "banane", "cerise", "orange"]
+  ```
+
+- **Tuples** : Utilisés pour des données constantes ou immuables (par exemple, des coordonnées, des jours de la semaine, des paramètres fixes).
+
+  ```python
+  jours = ("lundi", "mardi", "mercredi")
+  print(jours[0])  # "lundi"
+  ```
+
+---
+
+### 4. **Syntaxe**
+
+- **Listes** : Définies avec des crochets `[]`.
+
+  ```python
+  ma_liste = [1, 2, 3]
+  ```
+
+- **Tuples** : Définis avec des parenthèses `()`.
+
+  ```python
+  mon_tuple = (1, 2, 3)
+  ```
+
+---
+
+### Résumé des différences :
+
+| **Caractéristique** | **Liste**                            | **Tuple**                              |
+| ------------------- | ------------------------------------ | -------------------------------------- |
+| **Mutabilité**      | Modifiable                           | Non modifiable                         |
+| **Performance**     | Plus lente, consomme plus de mémoire | Plus rapide, consomme moins de mémoire |
+| **Utilisation**     | Données changeantes                  | Données constantes                     |
+| **Définition**      | Crochets `[]`                        | Parenthèses `()`                       |
+| **Exemple**         | `[1, 2, 3]`                          | `(1, 2, 3)`                            |
+
+En conclusion, utilise des **listes** si tu prévois de modifier les données, et des **tuples** si tes données doivent rester fixes et immuables.
+
+# FONCTIONS ET TUPLES
+
+En Python, une fonction peut retourner **plusieurs valeurs** en utilisant un **tuple**. Cela est particulièrement utile lorsque tu souhaites renvoyer un ensemble de données liées entre elles, comme des informations détaillées sur une personne.
+
+---
+
+## Exemple 1 : Retourner plusieurs valeurs avec un tuple
+
+```python
+def obtenir_informations():
+    return "Mélanie", 20, 1.60  # Retourne un tuple contenant plusieurs valeurs de différents types
+
+infos = obtenir_informations()  # Le tuple est stocké dans la variable `infos`
+
+# Accès aux éléments du tuple via leurs index
+print(f"nom : {infos[0]}")
+print(f"age : {infos[1]}")
+print(f"taille : {infos[2]}")
+```
+
+### Explications :
+
+1. **Retourner un tuple :**
+
+   - La fonction `obtenir_informations` retourne un **tuple** contenant les informations sous forme de valeurs distinctes (`str`, `int`, `float`).
+   - Les parenthèses sont optionnelles ici : Python comprend automatiquement que les valeurs séparées par des virgules constituent un tuple.
+
+2. **Accès via les index :**
+   - Les éléments du tuple peuvent être consultés à l’aide de leurs **index** : `infos[0]` pour le nom, `infos[1]` pour l’âge, etc.
+   - Bien que fonctionnel, cela rend le code moins lisible que d’utiliser des variables nommées.
+
+---
+
+## Exemple 2 : Passer un tuple en tant que paramètres d'une fonction
+
+```python
+def afficher_informations(nom, age, taille):
+    print(f"Informations : Nom : {nom}, age: {age}, taille {taille}")
+
+infos = obtenir_informations()  # Le tuple est stocké dans `infos`
+afficher_informations(*infos)  # "Ouvrir" le tuple pour le passer en arguments
+
+# infos à récupérer nom, age, taille sous forme de Tuple via le return de la fonction "obtenir_information", maintenant via *infos ou c'est comme si on faisait afficher_informations(valeur_nom, valeur_age, valeur_taille)
+
+print(*infos) # c'est comme si on fait print(valeur_nom, valeur_age, valeur_taille)
+#affichera "Mélanie 37 1.6"
+```
+
+### Explications :
+
+1. **Définition de la fonction `afficher_informations` :**
+
+   - Cette fonction prend trois paramètres (`nom`, `age`, `taille`) et affiche les informations dans un format lisible.
+
+2. **Passage d’un tuple avec `*` :**
+   - L’opérateur `*` "ouvre" le tuple `infos` et transmet ses éléments comme des arguments individuels à la fonction `afficher_informations`. On dit que l'on unpack le Tuple.
+   - Sans `*`, Python essaierait de passer le tuple entier comme un seul argument, ce qui provoquerait une erreur.
+
+---
+
+## Exemple 3 : Meilleure manière de décomposer un tuple
+
+```python
+def obtenir_informations():
+    return "Mélanie", 20, 1.60
+
+def afficher_informations(nom, age, taille):
+    print(f"Informations : Nom : {nom}, age: {age}, taille {taille}")
+
+# Décomposition du tuple directement en variables
+nom, age, taille = obtenir_informations()
+
+# Passage des variables nommées
+afficher_informations(nom, age, taille)
+```
+
+### Explications :
+
+1. **Décomposition du tuple :**
+
+   - Lors de l’appel à `obtenir_informations`, le tuple retourné est **décomposé** directement en trois variables (`nom`, `age`, `taille`).
+   - Cela rend le code plus lisible et les variables sont accessibles par des noms explicites.
+
+2. **Utilisation des variables décomposées :**
+   - Les variables `nom`, `age`, `taille` sont passées directement à la fonction `afficher_informations`, sans avoir besoin d'utiliser `*`.
+
+---
+
+## Résumé des bonnes pratiques
+
+- Si une fonction retourne plusieurs valeurs liées, utilise un **tuple**.
+- Utilise l’opérateur `*` pour "ouvrir" un tuple et transmettre ses éléments comme arguments individuels à une autre fonction.
+- **Décompose les tuples en variables nommées** pour rendre ton code plus lisible et maintenable :
+  ```python
+  nom, age, taille = obtenir_informations()
+  afficher_informations(nom, age, taille)
+  ```
+
+---
+
+# LES SLICES
+
+Les **slices** permettent de découper ou de parcourir des collections en Python.  
+Ils s'appliquent aux **listes**, aux **tuples**, et même aux **chaînes de caractères**, car ces dernières sont des collections immuables similaires aux tuples.
+
+---
+
+## Syntaxe d'un slice
+
+```python
+[start:end:step]
+```
+
+### Paramètres :
+
+1. **`start`** : L'index de début du slice (inclus). Si omis, commence au début de la collection.
+2. **`end`** : L'index de fin du slice (exclu). Si omis, va jusqu'à la fin de la collection.
+3. **`step`** : Le pas du slice. Définit l'incrément entre chaque élément.
+   - Par défaut, `step=1` (parcourt la collection élément par élément).
+   - Peut être négatif pour parcourir la collection en sens inverse.
+
+---
+
+## Exemple avec un tuple
+
+```python
+personnes = ("Mélanie", "Jean", "Martin", "Alice", "Pierre", "Paul")
+
+# Slice simple
+for personne in personnes[0:1]:  # Affiche l'élément à l'index 0
+    print(personne)  # Affiche "Mélanie", mais pas "Jean"
+
+# Slice avec un `step`
+for personne in personnes[::2]:  # Step de 2 (affiche un élément sur deux)
+    print(personne)  # Affiche "Mélanie", "Martin", "Pierre"
+
+# Slice inversé avec un `step` négatif
+for personne in personnes[::-1]:  # Parcourt le tuple en sens inverse
+    print(personne)  # Affiche "Paul", "Pierre", "Alice", ..., "Mélanie"
+```
+
+### Explications :
+
+1. **`[0:1]`** : Affiche uniquement l'élément à l'index `0` (`start=0`, `end=1` exclu).
+2. **`[::2]`** : Ignore les paramètres `start` et `end`, mais avance de `step=2`.
+3. **`[::-1]`** : Parcourt tous les éléments en **ordre inverse** grâce au `step=-1`.
+
+---
+
+## Exemple avec des chaînes de caractères
+
+Les slices fonctionnent également sur les chaînes de caractères, car elles sont considérées comme des **collections immuables**.
+
+```python
+nom = "Jean"
+
+# Slices simples
+print(nom[0:3])  # Affiche "Jea" (car `end=3`, donc le caractère à l'index 3 est exclu)
+print(nom[1:3])  # Affiche "ea" (commence à l'index 1, exclut l'index 3)
+
+# Slices avec step
+print(nom[::2])  # Affiche "Ja" (une lettre sur deux)
+print(nom[::-1])  # Affiche "naeJ" (inverse la chaîne)
+```
+
+### Explications :
+
+1. **`[0:3]`** : Commence à l'index `0` et s'arrête avant l'index `3`.
+2. **`[1:3]`** : Commence à l'index `1` et s'arrête avant l'index `3`.
+3. **`[::2]`** : Avance d'un pas de `2`, affichant une lettre sur deux.
+4. **`[::-1]`** : Affiche la chaîne en **ordre inverse**.
+
+---
+
+## Résumé des bonnes pratiques
+
+- Utilise **`start` et `end`** pour limiter les éléments à parcourir ou afficher.
+- Utilise **`step`** pour sauter des éléments ou inverser l’ordre.
+- Les slices sont idéaux pour :
+  - Extraire des parties d’une collection (comme des sous-listes ou sous-chaînes).
+  - Parcourir les collections en **ordre inversé** sans écrire de logique complexe.
+
+Avec les slices, ton code reste concis, puissant et lisible ! 😊
+
+---
+
+# LE DICTIONNAIRE
+
+Un **dictionnaire** est une collection en Python qui permet d'associer des **clés** à des **valeurs**.  
+Il est particulièrement utile pour structurer des données avec des champs et améliorer l'efficacité de certains algorithmes.
+
+---
+
+## Définition et syntaxe
+
+Un dictionnaire est défini avec des **accolades `{}`**, et chaque paire clé-valeur est séparée par un deux-points `:`.
+
+### Exemple de base :
+
+```python
+personne = {'nom': 'Mélanie', 'age': 25, 'profession': 'Développeuse'}
+print(personne['nom'])  # Affiche : Mélanie
+print(personne['age'])  # Affiche : 25
+```
+
+# Caractéristiques des dictionnaires
+
+## Clés uniques :
+
+- Chaque clé doit être unique dans un dictionnaire.
+- Si une clé est répétée, sa dernière valeur remplace la précédente.
+
+```python
+d = {'a': 1, 'b': 2, 'a': 3}  # La clé 'a' est répétée
+print(d)  # Affiche : {'a': 3, 'b': 2}
+```
+
+## Clés immuables :
+
+- Les clés doivent être des objets immuables (chaînes, nombres, tuples immuables).
+- Les listes ou autres objets mutables ne peuvent pas être utilisés comme clés.
+
+## Valeurs flexibles :
+
+- Les valeurs peuvent être de n'importe quel type : chaînes, nombres, listes, tuples, dictionnaires, etc.
+
+---
+
+# Opérations courantes sur les dictionnaires
+
+## Ajouter ou mettre à jour une clé-valeur
+
+```python
+personne = {}
+personne['ville'] = 'Paris'  # Ajoute une nouvelle clé 'ville'
+personne['age'] = 26         # Met à jour la valeur associée à la clé 'age'
+print(personne) # affiche {'ville': 'Paris', 'age': 26}
+```
+
+## Supprimer une clé-valeur
+
+```python
+del personne['profession']  # Supprime la clé 'profession'
+print(personne)
+```
+
+## Vérifier l'existence d'une clé
+
+```python
+if 'nom' in personne:
+    print("Clé 'nom' présente dans le dictionnaire")
+```
+
+## Parcourir un dictionnaire
+
+### Par les clés uniquement :
+
+```python
+for cle in personne:
+    print(cle)  # Affiche chaque clé du dictionnaire
+```
+
+### Par les valeurs uniquement :
+
+```python
+for valeur in personne.values():
+    print(valeur)  # Affiche chaque valeur du dictionnaire
+```
+
+### Par les paires clé-valeur :
+
+```python
+for cle, valeur in personne.items():
+    print(f"{cle}: {valeur}")  # Affiche chaque clé avec sa valeur
+```
+
+---
+
+## Obtenir une valeur en toute sécurité
+
+Utilise la méthode `get()` pour éviter une erreur si la clé n'existe pas :
+
+```python
+ville = personne.get('ville', 'Inconnue')  # Renvoie 'Inconnue' si la clé 'ville' n'existe pas
+print(ville)
+```
+
+---
+
+# Avantages des dictionnaires
+
+## Accès rapide :
+
+- Les dictionnaires permettent un accès rapide aux valeurs grâce à leurs clés.
+
+## Flexibilité :
+
+- Ils peuvent contenir des types de données variés et même être imbriqués.
+
+## Utile pour structurer des données complexes :
+
+- Les dictionnaires sont parfaits pour représenter des objets du monde réel ou des structures JSON.
+
+---
+
+# Exemple pratique : Dictionnaire imbriqué
+
+```python
+etudiants = {
+    '001': {'nom': 'Mélanie', 'age': 25, 'notes': [15, 18, 20]},
+    '002': {'nom': 'Jean', 'age': 22, 'notes': [12, 14, 16]},
+}
+```
+
+# Accéder aux informations d'un étudiant
+
+print(etudiants['001']['nom']) # Affiche : Mélanie
+
+# Ajouter une note à un étudiant
+
+etudiants['001']['notes'].append(19)
+print(etudiants['001']['notes']) # Affiche : [15, 18, 20, 19]
+
+---
+
+# Résumé
+
+- Un dictionnaire associe des **clés uniques** à des **valeurs**.
+- Les **clés** doivent être **immuables**, mais les **valeurs** peuvent être de n'importe quel type.
+- Les dictionnaires permettent de structurer des données complexes de manière lisible et efficace.
+
+---
+
+# Dictionnaire VS Listes
+
+En Python, **les dictionnaires** et **les listes** sont deux structures de données couramment utilisées, mais elles diffèrent par leur structure et leurs cas d'utilisation. Voici une comparaison entre les deux pour manipuler des données comme `nom`, `âge`, et `taille`.
+
+---
+
+## Manière de faire avec une liste
+
+# Liste contenant des tuples (nom, âge, taille)
+
+```Python
+personnes = [
+    ("Mélanie", 25, 1.6),
+    ("Paul", 29, 1.8),
+    ("Jacques", 35, 1.75),
+    ("Martin", 16, 1.65)
+]
+```
+
+# Fonction pour obtenir les informations d'une personne par son nom
+
+```Python
+def obtenir_information(nom, liste):
+    for i in liste:
+        if i[0] == nom:  # Vérifie si le nom correspond
+            return i
+    return None  # Retourne None si le nom n'est pas trouvé
+
+infos = obtenir_information("Jacques", personnes)
+print(infos)  # Affiche : ('Jacques', 35, 1.75)
+```
+
+### Inconvénients :
+
+1. **Recherche lente** : La recherche d’un élément dans une liste nécessite de parcourir tous les éléments un par un (`O(n)` en complexité).
+2. **Lisibilité réduite** : Les données ne sont pas nommées, donc on doit utiliser des index (`i[0]`, `i[1]`) pour accéder aux informations, ce qui peut rendre le code moins intuitif.
+
+---
+
+## Manière de faire avec un dictionnaire
+
+# Dictionnaire associant le nom à un tuple (âge, taille)
+
+```Python
+personnes_dict = {
+    'Mélanie': (25, 1.6),
+    'Paul': (29, 1.8),
+    'Jacques': (35, 1.75),
+    'Martin': (16, 1.65)
+}
+```
+
+# Recherche dans le dictionnaire
+
+```Python
+infos = personnes_dict.get('Jacques')  # Renvoie les infos de Jacques
+print(infos)  # Affiche : (35, 1.75)
+```
+
+# Recherche d'une clé inexistante
+
+```Python
+infos = personnes_dict.get('Claire')  # Renvoie None si la clé n'existe pas
+if not infos:  # Vérifie si aucune information n'est trouvée
+    print("La clé n'existe pas")
+else:
+    print(infos)
+```
+
+### Avantages :
+
+1. **Recherche rapide** : La recherche dans un dictionnaire est instantanée (`O(1)` en complexité), quelle que soit la taille des données.
+2. **Code lisible** : Les clés permettent de nommer les données, rendant leur manipulation plus intuitive.
+3. **Gestion des erreurs simplifiée** : La méthode `get()` permet de gérer facilement l'absence d'une clé sans provoquer d'erreur.
+
+---
+
+## Comparaison entre listes et dictionnaires
+
+| **Caractéristique**     | **Liste**                               | **Dictionnaire**                               |
+| ----------------------- | --------------------------------------- | ---------------------------------------------- |
+| **Structure**           | Collection ordonnée                     | Collection de paires clé-valeur                |
+| **Accès aux données**   | Basé sur des index                      | Basé sur des clés                              |
+| **Recherche**           | Parcourt tous les éléments (`O(n)`)     | Recherche instantanée par clé (`O(1)`)         |
+| **Lisibilité**          | Moins intuitive avec des index (`i[0]`) | Plus lisible grâce aux clés nommées            |
+| **Gestion des erreurs** | Doit être codée manuellement            | Méthode `get()` pour gérer l'absence d'une clé |
+
+---
+
+### Résumé :
+
+- Utilise une **liste** si l'ordre des éléments est important ou si tu manipules un petit ensemble de données.
+- Privilégie un **dictionnaire** lorsque tu as besoin d'accéder rapidement aux données ou que tu souhaites une structure plus lisible et intuitive.
