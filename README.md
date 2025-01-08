@@ -2,7 +2,7 @@
 
 Bienvenue sur mon dépôt GitHub consacré à **l'apprentissage de Python** ! Ici, vous trouverez un ensemble complet de cours et d'exercices pour vous accompagner dans votre maîtrise de ce langage de programmation polyvalent et puissant. 🚀
 
-## Ce repo sert avant tout à stocker mes notes et exercice mais il peut vous être utile si vous souhaitez apprendre Python.
+** Ce repo sert avant tout à stocker mes notes et exercice mais il peut vous être utile si vous souhaitez apprendre Python.**
 
 ## 🌟 Contenu du dépôt
 
