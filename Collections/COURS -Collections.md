@@ -1,5 +1,21 @@
 # PYTHON COLLECTIONS
 
+## Sommaire
+
+1. [Tuples](#tuples)
+2. [Listes](#listes)
+   - [Ajouter ou retirer un élément](#ajouter-ou-retirer-un-élément)
+   - [Ajouter plusieurs éléments](#ajouter-plusieurs-éléments-à-une-liste)
+   - [Supprimer un élément](#supprimer-un-élément-dune-liste)
+   - [Listes et fonctions](#listes-et-fonctions--modifications-globales)
+3. [Slices](#les-slices)
+4. [Dictionnaires](#le-dictionnaire)
+   - [Définition et syntaxe](#définition-et-syntaxe)
+   - [Opérations courantes](#opérations-courantes-sur-les-dictionnaires)
+   - [Exemple pratique : Dictionnaire imbriqué](#exemple-pratique--dictionnaire-imbriqué)
+5. [Comparaison : Dictionnaire vs Listes](#dictionnaire-vs-listes)
+6. [Exercice : Questionnaire interactif](#exercice--questionnaire-interactif-en-python)
+
 # TUPLES
 
 Les **tuples** font partie des collections en Python (comme les tableaux ou les listes).  
@@ -785,3 +801,175 @@ else:
 
 - Utilise une **liste** si l'ordre des éléments est important ou si tu manipules un petit ensemble de données.
 - Privilégie un **dictionnaire** lorsque tu as besoin d'accéder rapidement aux données ou que tu souhaites une structure plus lisible et intuitive.
+
+---
+
+# Exercice : Questionnaire interactif en Python
+
+Dans cet exercice, nous allons développer un **questionnaire interactif** en Python qui permet de poser des questions à l'utilisateur, de vérifier ses réponses, et de calculer un score final. Ce code utilise des **fonctions**, des **boucles**, et des **structures de données** comme les tuples pour structurer les questions.
+
+---
+
+## 1. Fonction : `demander_reponse_numerique`
+
+Cette fonction demande une réponse numérique à l'utilisateur tout en vérifiant que la réponse est un entier compris entre une borne minimale (`min`) et maximale (`max`). Si l'utilisateur entre une valeur invalide, la fonction redemande une réponse.
+
+### Code :
+
+```Python
+def demander_reponse_numerique(min, max):
+    reponse_utilisateur_str = input(f"Votre réponse (Entre {min} et {max}) : ")
+
+    try:
+        reponse_utilisateur_int = int(reponse_utilisateur_str)
+        if min <= reponse_utilisateur_int <= max:
+            return reponse_utilisateur_int
+
+        print(f"ERREUR: Veuillez entrer un nombre entre {min} et {max}) : ")
+    except:
+        print(f"ERREUR: Veuillez entrer uniquement des chiffres (Entre {min} et {max}) ")
+    return demander_reponse_numerique(min, max)
+```
+
+### Explications :
+
+1. **Vérification de la validité** :
+
+   - Utilise un `try-except` pour vérifier que l'entrée est un entier.
+   - Si l'utilisateur entre une valeur non numérique ou hors des bornes, un message d'erreur est affiché.
+
+2. **Récursivité** :
+   - La fonction se rappelle elle-même (`return demander_reponse_numerique`) jusqu'à ce que l'utilisateur fournisse une réponse valide.
+   - Cette approche simplifie la gestion des erreurs.
+
+---
+
+## 2. Fonction : `poser_question`
+
+Cette fonction pose une question à l'utilisateur, affiche les options disponibles, et détermine si la réponse est correcte ou non.
+
+### Code :
+
+```Python
+def poser_question(question):
+    bonne_reponse = question[2]  # Stocke la bonne réponse
+    print("QUESTION")
+    print("  " + question[0] )
+
+    # Boucle pour afficher les choix
+    choix = question[1]
+    for i in range(len(choix)):
+         print("   ", i+1,"-", choix[i])
+
+    print()
+    resultat_reponse_correcte = False
+    reponse_utilisateur_int = demander_reponse_numerique(1, len(choix))
+    if choix[reponse_utilisateur_int-1].lower() == bonne_reponse.lower():
+        print("Bonne réponse")
+        resultat_reponse_correcte = True
+    else:
+        print("Mauvaise réponse")
+    print()
+    return resultat_reponse_correcte
+```
+
+### Explications :
+
+1. **Affichage des choix** :
+
+   - La fonction utilise une boucle pour afficher les options (`for i in range(len(choix))`).
+   - Cela permet de s'adapter dynamiquement au nombre d'options.
+
+2. **Validation de la réponse** :
+
+   - La réponse de l'utilisateur (`reponse_utilisateur_int`) est convertie en index (`reponse_utilisateur_int - 1`) pour accéder à la bonne option.
+   - Les comparaisons sont insensibles à la casse grâce à `.lower()`.
+
+3. **Retour de la fonction** :
+   - Renvoie `True` si la réponse est correcte, sinon `False`.
+
+---
+
+## 3. Fonction : `lancer_questionnaire`
+
+Cette fonction parcourt une série de questions, pose chaque question à l'utilisateur, et calcule le score final.
+
+### Code :
+
+```Python
+def lancer_questionnaire(questionnaire):
+    score = 0
+    for question in questionnaire:
+        if poser_question(question):
+            score +=1
+    print("Score final :", score, "sur", len(questionnaire))
+```
+
+### Explications :
+
+1. **Parcours des questions** :
+
+   - Utilise une boucle `for` pour parcourir toutes les questions du questionnaire.
+   - Chaque question est traitée par la fonction `poser_question`.
+
+2. **Calcul du score** :
+
+   - Le score est incrémenté (`score += 1`) chaque fois que la réponse de l'utilisateur est correcte.
+
+3. **Affichage final** :
+   - Affiche le score de l'utilisateur par rapport au nombre total de questions.
+
+---
+
+## 4. Structure des données : Questionnaire
+
+Les questions sont organisées dans un **tuple** de tuples, où chaque tuple contient :
+
+- Le texte de la question.
+- Une liste des réponses possibles.
+- La bonne réponse.
+
+### Exemple de structure :
+
+```Python
+questionnaire = (
+    ("Quelle est la capitale de la France ?", ("Marseille", "Nice", "Paris", "Nantes", "Lille"), "Paris"),
+    ("Quelle est la capitale de l'Italie ?", ("Rome", "Venise", "Pise", "Florence"), "Rome"),
+    ("Quelle est la capitale de la Belgique ?", ("Rome", "Bruxelles", "Pise", "Florence"), "Bruxelles")
+)
+```
+
+### Avantages de cette structure :
+
+1. **Lisibilité** :
+
+   - Chaque question est clairement structurée avec ses réponses et la bonne réponse.
+
+2. **Flexibilité** :
+   - Il est facile d'ajouter ou de modifier des questions sans changer le code.
+
+---
+
+## Résumé des points importants
+
+1. **Récursivité** :
+
+   - La fonction `demander_reponse_numerique` utilise la récursivité pour gérer les erreurs et redemander une entrée valide.
+
+2. **Boucles pour afficher les choix** :
+
+   - Les choix des questions sont affichés dynamiquement à l'aide d'une boucle, ce qui rend le code adaptable à un nombre variable de réponses.
+
+3. **Gestion des réponses** :
+
+   - Comparaison insensible à la casse (`.lower()`) pour vérifier si la réponse est correcte.
+   - Utilisation de `get()` dans le dictionnaire pour éviter les erreurs lors de la récupération des réponses.
+
+4. **Structure des données** :
+
+   - Les tuples sont utilisés pour structurer les questions, offrant une lisibilité et une efficacité accrues.
+
+5. **Score final** :
+   - La fonction `lancer_questionnaire` parcourt toutes les questions et calcule un score final pour l'utilisateur.
+
+Avec ce programme, vous avez un **questionnaire interactif** qui gère les erreurs, affiche dynamiquement les options, et fournit un score final à l'utilisateur.
