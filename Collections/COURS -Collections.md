@@ -71,19 +71,56 @@ Pour **ajouter un élément** à une liste, on utilise la méthode `append()` :
 nom_liste.append(élément_à_ajouter)
 ```
 
+## Ajouter plusieurs éléments à une liste
+
+1. **`extend()`** :
+
+   - Ajoute les **éléments** d’une autre liste, un par un.
+
+     ```python
+     nom_liste = ["Jean", "Sophie"]
+     elements_a_ajouter = ["Christophe", "Zoé"]
+     nom_liste.extend(elements_a_ajouter)
+     print(nom_liste)  # ['Jean', 'Sophie', 'Christophe', 'Zoé']
+     ```
+
+2. **Opérateur `+=`** :
+
+   - Semblable à `extend()` :
+
+     ```python
+     nom_liste += elements_a_ajouter
+     ```
+
+3. **Ajouter une sous-liste entière avec `append()`** :
+
+   - La liste est ajoutée comme un **élément unique** :
+
+     ```python
+     nom_liste.append(elements_a_ajouter)
+     ```
+
+## Supprimer un élément d'une liste
+
 Pour **retirer un élément**, plusieurs options s'offrent à nous :
 
-1. Utiliser le mot-clé `del` pour supprimer un élément à un **index précis** :
+1. **Supprimer par index** :
 
    ```python
-   del nom_liste[index]
+   del noms[index]
    ```
 
-2. Utiliser la méthode `remove()` pour supprimer un **élément spécifique** :
+2. **Supprimer un élément spécifique** :
+
    ```python
-   nom_liste.remove(élément)
+   noms.remove(valeur)
    ```
-   Attention : Cette méthode supprime uniquement la **première occurrence** de l'élément.
+
+3. **Supprimer et récupérer l’élément** :
+
+   ```python
+   noms.pop(index)
+   ```
 
 ### Suppression avec une boucle
 
@@ -134,8 +171,9 @@ print(test)  # Affichera : [10, 2, 3, 4]
 
 3. **Différence avec une variable simple :**
 
-   - Les variables simples comme les entiers ou les floats sont des **objets immuables**. Lorsqu'elles sont passées en paramètre, une **copie** de leur valeur est utilisée, et leur valeur d'origine reste inchangée.  
-     Exemple avec une variable simple :
+   - Les variables simples comme les entiers ou les floats sont des **objets immuables**. Lorsqu'elles sont passées en paramètre, une **copie** de leur valeur est utilisée, et leur valeur d'origine reste inchangée.
+
+     **Exemple avec une variable simple :**
 
    ```python
    def modifier_variable(x):
@@ -151,61 +189,58 @@ print(test)  # Affichera : [10, 2, 3, 4]
    - Les objets mutables (comme les listes) transmettent leur **référence mémoire**, pas une copie.
    - Les objets immuables (comme les entiers) transmettent leur **valeur**, donc toute modification dans la fonction n'affecte pas l'objet d'origine.
 
----
+### Comment éviter les modifications globales ?
 
-### **Résumé :**
+Pour éviter que la liste originale ne soit modifiée :
 
-- Les listes sont modifiées globalement lorsqu'elles sont passées en paramètre et modifiées dans une fonction.
+1. **Faire une copie de la liste avant modification** :
 
-- Pour éviter ce comportement, tu peux utiliser :
+   ```python
+   originale = [1, 2, 3]
+   copie = originale.copy()  # Copie superficielle
+   copie[0] = 10
+   print(originale)  # [1, 2, 3]
+   print(copie)      # [10, 2, 3]
+   ```
 
-  - Une **copie superficielle** avec `copy()` ou `list()`.
+2. **Utiliser une tranche pour copier** :
 
-    ```python
-    originale = [1, 2, 3]
-    copie_avec_copy = originale.copy()
-    copie_avec_list = list(originale)
-    print(copie_avec_copy)  # [1, 2, 3]
-    print(copie_avec_list)  # [1, 2, 3]
-    ```
+   ```python
+   originale = [1, 2, 3]
+   copie = originale[:]
+   copie[0] = 10
+   print(originale)  # [1, 2, 3]
+   print(copie)      # [10, 2, 3]
+   ```
 
-    Ces deux méthodes sont équivalentes pour des listes simples.  
-    Utiliser `copy()` est généralement recommandé car elle est plus explicite.
+3. **Pour des structures imbriquées**, utiliser une copie **profonde** :
 
-  - Une **tranche** pour créer une copie superficielle :
+   ```python
+   import copy
 
-    ```python
-    originale = [1, 2, 3]
-    copie = originale[:]
-    print(copie)  # [1, 2, 3]
-    ```
+   originale = [[1, 2], [3, 4]]
+   copie_profonde = copy.deepcopy(originale)
 
-  - Une **copie profonde** avec `copy.deepcopy()` si la liste contient des éléments imbriqués.
-
-    ```python
-    import copy
-
-    originale = [[1, 2], [3, 4]]
-    copie_profonde = copy.deepcopy(originale)
-
-    copie_profonde[0][0] = 10
-    print(originale)  # [[1, 2], [3, 4]] (inchangée)
-    print(copie_profonde)  # [[10, 2], [3, 4]] (modifiée)
-    ```
-
-### **Pourquoi privilégier `copy()` ?**
-
-- **Plus explicite :** Le lecteur comprend immédiatement que tu veux copier la liste.
-- **Modernité :** Méthode standard et intuitive introduite dans Python 3.
-- **Lisibilité pédagogique :** Idéal pour les explications ou les cours, car il met l'intention en évidence.
+   copie_profonde[0][0] = 10
+   print(originale)  # [[1, 2], [3, 4]] (inchangée)
+   print(copie_profonde)  # [[10, 2], [3, 4]] (modifiée)
+   ```
 
 ---
 
-### **Quand utiliser quoi ?**
+### Résumé :
 
-- Utilise `copy()` pour une copie simple et lisible.
-- Utilise `list()` ou `[:]` si tu es déjà familier avec ces méthodes.
-- Utilise `copy.deepcopy()` pour des listes imbriquées ou complexes.
+- **Les listes sont modifiées globalement lorsqu'elles sont passées en paramètre** si elles sont altérées dans la fonction.
+- Pour éviter ce comportement :
+  - Utilise `copy()` ou une tranche (`[:]`) pour créer une **copie superficielle**. Ces méthodes sont adaptées pour des listes simples (sans sous-listes ou objets imbriqués).
+  - Si la liste contient des sous-listes ou des objets imbriqués, utilise `copy.deepcopy()`. Cela permet de dupliquer également les éléments imbriqués sans affecter l'original.
+- **Pourquoi utiliser `copy()` ?**
+  - Plus explicite : Le lecteur comprend immédiatement que tu veux créer une copie.
+  - Modernité et clarté : `copy()` est une méthode standard, intuitive et lisible.
+  - Alternative avec `[:]` ou `list()` : Ces méthodes restent valides et équivalentes pour des listes simples.
+- **Quand utiliser quoi ?**
+  - **`copy()` ou `[:]`** : Pour des listes simples, sans imbrication.
+  - **`copy.deepcopy()`** : Si la liste est complexe et contient des sous-listes ou des objets.
 
 ## Méthodes utiles pour les listes
 
