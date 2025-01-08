@@ -2,7 +2,7 @@
 
 Bienvenue sur mon dépôt GitHub consacré à **l'apprentissage de Python** ! Ici, vous trouverez un ensemble complet de cours et d'exercices pour vous accompagner dans votre maîtrise de ce langage de programmation polyvalent et puissant. 🚀
 
----
+## Ce repo sert avant tout à stocker mes notes et exercice mais il peut vous être utile si vous souhaitez apprendre Python.
 
 ## 🌟 Contenu du dépôt
 
@@ -17,8 +17,7 @@ Bienvenue sur mon dépôt GitHub consacré à **l'apprentissage de Python** ! Ic
 
 ### 📝 **Exercices**
 
-- Exercices pratiques pour appliquer vos connaissances.
-- **Questionnaire interactif** inclus pour tester vos compétences. 🧠
+- Exercices pratiques pour appliquer vos connaissances. 🧠
 - Cas d'utilisation réels pour résoudre des problèmes avec Python. ⚙️
 
 ---
@@ -47,14 +46,13 @@ Si vous repérez des erreurs ou souhaitez ajouter de nouveaux exercices, n’hé
 
 ---
 
-## 🛠️ Pré-requis
+## 💬 Contact
 
-- Installez Python (version 3.8 ou supérieure) : [Télécharger Python](https://www.python.org/downloads/)
-- Un éditeur de code recommandé :
-  - [VS Code](https://code.visualstudio.com/) ou [PyCharm](https://www.jetbrains.com/pycharm/)
+Pour toute question ou suggestion, vous pouvez me contacter via :
+
+- Mon [profil GitHub](https://github.com/scaruu)
+- Ou ouvrir une **issue** directement sur ce dépôt.
 
 ---
 
-## 🚀 Comment utiliser ce dépôt ?
-
-1. Clonez le dépôt sur votre machine locale :
+⭐ **N'oubliez pas de star ce dépôt si vous le trouvez utile !** ⭐
