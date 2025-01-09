@@ -5,6 +5,58 @@
 Parmi les noms suivants, lesquels sont valides ?
 
 - `1var`, `_variable`, `nom utilisateur`, `if`, `ma_variable`
+<details>
+  <summary><b>Solution</b></summary>
+  <h2>Exercice 1 : Noms valides ✅</h2>
+
+<p>Parmi les noms suivants, lesquels sont valides ?</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Nom</strong></th>
+      <th><strong>Est valide ?</strong></th>
+      <th><strong>Explication</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>1var</code></td>
+      <td>❌ Non</td>
+      <td>Les noms de variables ne peuvent pas commencer par un chiffre.</td>
+    </tr>
+    <tr>
+      <td><code>_variable</code></td>
+      <td>✅ Oui</td>
+      <td>Les noms de variables peuvent commencer par un underscore <code>_</code>.</td>
+    </tr>
+    <tr>
+      <td><code>nom utilisateur</code></td>
+      <td>❌ Non</td>
+      <td>Les espaces ne sont pas autorisés dans les noms de variables.</td>
+    </tr>
+    <tr>
+      <td><code>if</code></td>
+      <td>❌ Non</td>
+      <td><code>if</code> est un mot-clé réservé en Python et ne peut pas être utilisé comme nom.</td>
+    </tr>
+    <tr>
+      <td><code>ma_variable</code></td>
+      <td>✅ Oui</td>
+      <td>Ce nom respecte les conventions : lettres, underscores, pas de mots réservés.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Résumé 📋 :</h3>
+<ul>
+  <li>Un nom de variable doit commencer par une lettre (<code>a-z</code>, <code>A-Z</code>) ou un underscore <code>_</code>.</li>
+  <li>Il ne peut pas commencer par un chiffre.</li>
+  <li>Les espaces et caractères spéciaux ne sont pas autorisés.</li>
+  <li>Les mots-clés réservés de Python (comme <code>if</code>, <code>while</code>, <code>def</code>, etc.) ne peuvent pas être utilisés.</li>
+</ul>
+
+</details>
 
 ### Exercice 2 : Conversion de types
 
