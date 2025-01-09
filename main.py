@@ -13,9 +13,11 @@ print(slices_noms)
 # print(noms)
 """
 
+
+
 # LES COLLECTIONS : LISTES / TUPLES
 # Tris : Sort et sorted
-
+"""
 def tri_longueur_caracteres(nom): #fonction pour l'exemple ou l'on passe une fonction à sort() avec key.
     return len(nom)
 
@@ -34,4 +36,35 @@ noms_tries = sorted(noms, reverse=True)  # Va en plus inverser l'ordre
 
 noms_tries = sorted(noms, key=tri_longueur_caracteres, reverse=True) #avec fonction calback
 print(noms)
-# print(noms_tries)
+# print(noms_tries)"""
+
+
+
+# LES COLLECTIONS : LISTES / TUPLES
+# Opetations sur les éléments : min, max, in, sum
+"""
+noms = ["Jean", "Sophie", "Martin", "Christophe", "Zoé"]
+ages = [21, 20, 30, 25, 22]
+
+# min et max
+print(min(ages)) # donne la valeur minimum de la collection, ici 20
+print(min(noms)) # donne "Christophe" car c'est le plus bas dans l'odre alphabétique
+print(max(noms)) # donne "Zoé" car c'est le plus haut dans l'odre alphabétique
+# MAIS A UTILISER QUE SUR DES VALEURS NUMERIQUES
+
+#in avec un if / différent de in dans une boucle for(sensible à la case)
+if "Jean" in noms: #si la valeur "Jean" est présente dans le tableau "noms"
+    print("Présent")
+else:
+    print("Absent")
+""
+# sum
+print(sum(ages)) #calcule la somme des valeurs de la liste, utilisable uniquement sur des collections qui on des valeurs numériques
+"""
+
+
+
+# LES COLLECTIONS : LISTES / TUPLES
+# swapper deux éléments d'une liste (échanger de position)
+
+noms = ["Jean", "Sophie", "Martin", "Christophe", "Zoé"]
