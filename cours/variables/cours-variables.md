@@ -2,9 +2,39 @@
 
 Les variables sont des éléments essentiels en programmation, permettant de stocker, manipuler et réutiliser des données. En Python, elles sont dynamiques, faciles à utiliser et flexibles.
 
+## Sommaire
+
+1. [Introduction aux Variables](#1-introduction-aux-variables)
+   - [Qu'est-ce qu'une variable ?](#quest-ce-quune-variable-)
+   - [Caractéristiques des variables en Python](#caractéristiques-des-variables-en-python)
+2. [Déclaration et Affectation](#2-déclaration-et-affectation)
+   - [Syntaxe de base](#syntaxe-de-base)
+   - [Affectation multiple](#affectation-multiple)
+   - [Type dynamique](#type-dynamique)
+3. [Types de Données](#3-types-de-données)
+   - [Types de base](#types-de-base)
+   - [Collections](#collections)
+   - [Type spécial : `None`](#type-spécial--none)
+4. [Conversion de Types](#4-conversion-de-types)
+5. [Nommage des Variables : Règles et Bonnes Pratiques](#5-nommage-des-variables--règles-et-bonnes-pratiques)
+   - [Règles syntaxiques](#règles-syntaxiques)
+   - [Bonnes pratiques](#bonnes-pratiques)
+6. [Portée des Variables (Scope)](#6-portée-des-variables-scope)
+   - [Variables locales](#variables-locales)
+   - [Variables globales](#variables-globales)
+   - [Le mot-clé `global`](#le-mot-clé-global)
+7. [Variables Mutables vs Immuables](#7-variables-mutables-vs-immuables)
+   - [Types immuables](#types-immuables)
+   - [Types mutables](#types-muables)
+8. [Références et Mémoire](#8-références-et-mémoire)
+   - [Exemple](#exemple)
+   - [Copier des objets](#copier-des-objets)
+     - [Copie superficielle](#copie-superficielle)
+     - [Copie profonde](#copie-profonde)
+
 ---
 
-## 🛠️ 1. Introduction aux Variables
+## 1. Introduction aux Variables
 
 ### Qu'est-ce qu'une variable ?
 
@@ -31,7 +61,7 @@ Une variable est un conteneur permettant de stocker des données. Elle agit comm
 
 ---
 
-## 🛠️ 2. Déclaration et Affectation
+## 2. Déclaration et Affectation
 
 ### Syntaxe de base
 
@@ -64,7 +94,7 @@ variable = "texte" # Devient une chaîne
 
 ---
 
-## 🛠️ 3. Types de Données
+## 3. Types de Données
 
 ### Types de base
 
@@ -97,7 +127,7 @@ x = None # Variable sans valeur
 
 ---
 
-## 🛠️ 4. Conversion de Types
+## 4. Conversion de Types
 
 Les types de données peuvent être convertis à l'aide de fonctions prédéfinies.
 
@@ -113,7 +143,7 @@ Les types de données peuvent être convertis à l'aide de fonctions prédéfini
 
 ---
 
-## 🛠️ 5. Nommage des Variables : Règles et Bonnes Pratiques
+## 5. Nommage des Variables : Règles et Bonnes Pratiques
 
 ### Règles syntaxiques
 
@@ -150,7 +180,7 @@ Les types de données peuvent être convertis à l'aide de fonctions prédéfini
 
 ---
 
-## 🛠️ 6. Portée des Variables (Scope)
+## 6. Portée des Variables (Scope)
 
 ### Variables locales
 
@@ -196,7 +226,7 @@ print(compteur) # Affiche : 1
 
 ---
 
-## 🛠️ 7. Variables Mutables vs Immuables
+## 7. Variables Mutables vs Immuables
 
 ### Types immuables
 
@@ -221,7 +251,7 @@ liste[0] = 10 # Modification possible
 
 ---
 
-## 🛠️ 8. Références et Mémoire
+## 8. Références et Mémoire
 
 En Python, les variables stockent des **références** vers des objets, pas directement les valeurs.
 
