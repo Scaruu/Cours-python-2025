@@ -1,5 +1,4 @@
 ### Exercice 3 : Trouver les erreurs
-
 #Parmi les déclarations de variables ci-dessous, identifiez celles qui contiennent des erreurs et corrigez-les.
 
 # 1var = 10 # Erreur : ne peut pas commencer par un chiffre
