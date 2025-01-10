@@ -1,22 +1,47 @@
 # 📚 Cours complet : Les Fonctions en Python
 
+## Sommaire :
+
+1. [Introduction](#introduction)
+2. [✨ Définir une fonction](#-définir-une-fonction)
+3. [📥 Paramètres et arguments](#-paramètres-et-arguments)
+4. [🛠️ Paramètres par défaut](#️-paramètres-par-défaut)
+5. [🌟 Arguments positionnels et nommés](#-arguments-positionnels-et-nommés)
+6. [🔢 Nombre variable d'arguments](#-nombre-variable-darguments)
+   - [`*args` : Arguments positionnels variables](#args--arguments-positionnels-variables)
+   - [`**kwargs` : Arguments nommés variables](#kwargs--arguments-nommés-variables)
+7. [🔄 Valeur de retour avec `return`](#-valeur-de-retour-avec-return)
+8. [🔄 Les fonctions anonymes (lambda)](#-les-fonctions-anonymes-lambda)
+9. [🔄 Les Callbacks](#-les-callbacks)
+10. [📜 Fonctions imbriquées](#-fonctions-imbriquées)
+11. [🛠️ Les décorateurs (Decorators)](#️-les-décorateurs-decorators)
+    - [Exemple de base](#exemple-de-base)
+    - [Exemple : Mesurer le temps d'exécution](#exemple--mesurer-le-temps-dexécution)
+12. [🌟 Portée des variables (Scope)](#-portée-des-variables-scope)
+13. [⚙️ Utilisation du mot-clé `global`](#️-utilisation-du-mot-clé-global)
+14. [🔄 Fonctions récursives](#-fonctions-récursives)
+15. [🔢 Déballer les arguments avec `*` et `**`](#-déballer-les-arguments-avec--et-)
+    - [Exemple avec `*` pour des listes/tuples](#exemple-avec--pour-des-listestuples)
+    - [Exemple avec `**` pour des dictionnaires](#exemple-avec--pour-des-dictionnaires)
+16. [Résumé des bonnes pratiques](#résumé-des-bonnes-pratiques)
+
 ## Introduction
 
-Les fonctions sont des blocs de code réutilisables qui permettent de structurer et d'organiser un programme. Elles peuvent prendre des **paramètres** en entrée, exécuter des instructions, et renvoyer une **valeur** en sortie.
+Les fonctions sont des blocs de code réutilisables qui permettent de structurer et d'organiser un programme. Elles peuvent prendre des **paramètres** en entrée, exécuter des instructions, et renvoyer une **valeur** en sortie. Utiliser des fonctions rend le code plus clair, modulaire et facile à maintenir.
 
 ---
 
 ## ✨ Définir une fonction
 
-Une fonction en Python est définie à l'aide du mot-clé `def`, suivi du **nom de la fonction**, des **parenthèses** (avec ou sans paramètres), et d'un bloc d'instructions.
+Une fonction en Python est définie avec le mot-clé `def`, suivi du **nom de la fonction**, des **parenthèses** (avec ou sans paramètres) et d’un **bloc d'instructions**.
 
-```Python
+[Python]
 def saluer():
-    print("Bonjour !")
+print("Bonjour !")
 
 # Appel de la fonction
-saluer()  # Affiche : Bonjour !
-```
+
+saluer() # Affiche : Bonjour !
 
 ---
 
@@ -26,191 +51,215 @@ Les **paramètres** sont des variables définies dans la fonction, et les **argu
 
 ### Exemple avec un paramètre
 
-```Python
+[Python]
 def saluer_utilisateur(nom):
-    print(f"Bonjour, {nom} !")
+print(f"Bonjour, {nom} !")
 
-saluer_utilisateur("Mélanie")  # Affiche : Bonjour, Mélanie !
-```
+saluer_utilisateur("Mélanie") # Affiche : Bonjour, Mélanie !
 
----
+### Exemple avec plusieurs paramètres
 
-## 🔄 Valeur de retour avec `return`
-
-Une fonction peut renvoyer une valeur grâce au mot-clé `return`.
-
-```Python
+[Python]
 def addition(a, b):
-    return a + b
+return a + b
 
-resultat = addition(5, 3)
-print(resultat)  # Affiche : 8
-
-```
-
----
-
-## 🚀 Fonctions avec plusieurs paramètres
-
-Python permet de définir des fonctions avec plusieurs paramètres.
-
-```Python
-def soustraction(a, b, c):
-    return a - b - c
-
-print(soustraction(10, 3, 2))  # Affiche : 5
-```
+print(addition(3, 5)) # Affiche : 8
 
 ---
 
 ## 🛠️ Paramètres par défaut
 
-Les paramètres peuvent avoir des valeurs par défaut. Si aucun argument n'est passé, la valeur par défaut est utilisée.
+Vous pouvez définir des valeurs par défaut pour les paramètres. Si aucun argument n'est passé, la valeur par défaut est utilisée.
 
-```Python
+[Python]
 def saluer(nom="inconnu"):
-    print(f"Bonjour, {nom} !")
+print(f"Bonjour, {nom} !")
 
-saluer()  # Affiche : Bonjour, inconnu !
-saluer("Jean")  # Affiche : Bonjour, Jean !
-```
+saluer() # Affiche : Bonjour, inconnu !
+saluer("Jean") # Affiche : Bonjour, Jean !
 
 ---
 
 ## 🌟 Arguments positionnels et nommés
 
-Python permet de passer des arguments **par position** ou **par nom**.
+### Arguments positionnels
 
-```Python
+Les arguments sont passés dans l'ordre défini par les paramètres.
+
+[Python]
 def afficher_informations(nom, age, ville):
-    print(f"Nom : {nom}, Âge : {age}, Ville : {ville}")
+print(f"Nom : {nom}, Âge : {age}, Ville : {ville}")
 
-# Arguments positionnels
-afficher_informations("Mélanie", 25, "Paris")
+afficher_informations("Mélanie", 25, "Paris") # Positionnel
 
-# Arguments nommés
-afficher_informations(age=25, ville="Paris", nom="Mélanie")
-```
+### Arguments nommés
+
+Les arguments sont spécifiés par leurs noms, ce qui rend l'ordre facultatif.
+
+[Python]
+afficher_informations(age=25, ville="Paris", nom="Mélanie") # Nommé
 
 ---
 
 ## 🔢 Nombre variable d'arguments
 
-### 1. Arguments positionnels variables (`*args`)
+### `*args` : Arguments positionnels variables
 
 Utilisez `*args` pour accepter un nombre illimité d'arguments positionnels.
 
-```Python
-def addition(*nombres):
-    return sum(nombres)
+[Python]
+def addition(\*nombres):
+return sum(nombres)
 
-print(addition(1, 2, 3))  # Affiche : 6
-print(addition(4, 5, 6, 7, 8))  # Affiche : 30
-```
+print(addition(1, 2, 3)) # Affiche : 6
+print(addition(4, 5, 6, 7)) # Affiche : 22
 
-### 2. Arguments nommés variables (`**kwargs`)
+### `**kwargs` : Arguments nommés variables
 
 Utilisez `**kwargs` pour accepter un nombre illimité d'arguments nommés.
 
-```Python
-def afficher_infos(**kwargs):
-    for cle, valeur in kwargs.items():
-        print(f"{cle} : {valeur}")
+[Python]
+def afficher_infos(\*\*kwargs):
+for cle, valeur in kwargs.items():
+print(f"{cle} : {valeur}")
 
 afficher_infos(nom="Mélanie", age=25, ville="Paris")
-```
+
+---
+
+## 🔄 Valeur de retour avec `return`
+
+Une fonction peut renvoyer une ou plusieurs valeurs grâce à `return`.
+
+### Exemple simple
+
+[Python]
+def soustraction(a, b):
+return a - b
+
+print(soustraction(10, 3)) # Affiche : 7
+
+### Retourner plusieurs valeurs
+
+[Python]
+def calculs(a, b):
+return a + b, a - b
+
+somme, difference = calculs(10, 3)
+print(somme, difference) # Affiche : 13 7
 
 ---
 
 ## 🔄 Les fonctions anonymes (lambda)
 
-Les **lambdas** sont des fonctions anonymes, généralement utilisées pour des opérations simples.
+Les **lambdas** sont des fonctions anonymes utilisées pour des opérations simples.
 
-```Python
-addition = lambda a, b: a + b
-print(addition(5, 3))  # Affiche : 8
-```
+[Python]
+addition = lambda x, y: x + y
+print(addition(3, 5)) # Affiche : 8
 
 ---
 
 ## 🔄 Les Callbacks
 
-Un **callback** est une fonction passée en argument à une autre fonction et appelée à l'intérieur de cette fonction.
+Un **callback** est une fonction passée en paramètre d'une autre fonction.
 
-### Exemple simple
-
-```Python
+[Python]
 def effectuer_operation(callback, a, b):
-    return callback(a, b)
+return callback(a, b)
 
-def addition(x, y):
-    return x + y
+def multiplication(x, y):
+return x \* y
 
-print(effectuer_operation(addition, 5, 3))  # Affiche : 8
-```
+print(effectuer_operation(multiplication, 3, 5)) # Affiche : 15
 
 ---
 
 ## 📜 Fonctions imbriquées
 
-Une fonction peut être définie à l'intérieur d'une autre.
+Une fonction peut être définie à l'intérieur d'une autre fonction.
 
-```Python
-def fonction_principale():
-    def fonction_interne():
-        print("Fonction interne exécutée")
-    fonction_interne()
+[Python]
+def exterieur():
+def interieur():
+print("Fonction interne exécutée")
+interieur()
 
-fonction_principale()
-```
+exterieur()
 
 ---
 
-## 🏭 Fonctions comme objets de première classe
+## 🛠️ Les décorateurs (Decorators)
 
-En Python, les fonctions sont des objets. Elles peuvent être assignées à des variables, passées comme arguments, ou retournées par d'autres fonctions.
+Un **décorateur** permet de modifier ou étendre le comportement d'une fonction sans en modifier le code.
 
-### Exemple
+### Exemple de base
 
-```Python
+[Python]
+def decorateur(fonction):
+def wrapper():
+print("Avant l'exécution")
+fonction()
+print("Après l'exécution")
+return wrapper
+
+@decorateur
 def dire_bonjour():
-    return "Bonjour !"
+print("Bonjour !")
 
-message = dire_bonjour
-print(message())  # Affiche : Bonjour !
-```
+dire_bonjour()
+
+### Exemple : Mesurer le temps d'exécution
+
+[Python]
+import time
+
+def mesurer_temps(fonction):
+def wrapper(*args, \*\*kwargs):
+debut = time.time()
+resultat = fonction(*args, \*\*kwargs)
+fin = time.time()
+print(f"Temps d'exécution : {fin - debut:.4f} secondes")
+return resultat
+return wrapper
+
+@mesurer_temps
+def calcul():
+time.sleep(2)
+print("Opération terminée !")
+
+calcul()
 
 ---
 
-## 🌟 Portée des variables (scope)
+## 🌟 Portée des variables (Scope)
 
-Les variables définies dans une fonction ont une portée locale, sauf si elles sont déclarées globales.
+Les variables définies dans une fonction sont locales et ne peuvent pas être utilisées en dehors de la fonction.
 
-```Python
-def afficher_message():
-    message = "Ceci est un message local"
-    print(message)
+[Python]
+def exemple():
+var_locale = "Je suis locale"
+print(var_locale)
 
-afficher_message()
-# print(message)  # Erreur : la variable n'existe pas dans la portée globale
-```
+exemple()
+
+# print(var_locale) # Provoque une erreur, car var_locale n'est pas définie dans la portée globale.
 
 ---
 
 ## ⚙️ Utilisation du mot-clé `global`
 
-Pour modifier une variable globale à l'intérieur d'une fonction, utilisez `global`.
+Pour modifier une variable globale dans une fonction, utilisez le mot-clé `global`.
 
-```Python
+[Python]
 compteur = 0
 
-def incrementer_compteur():
-    global compteur
-    compteur += 1
+def incrementer():
+global compteur
+compteur += 1
 
-incrementer_compteur()
-print(compteur)  # Affiche : 1
-```
+incrementer()
+print(compteur) # Affiche : 1
 
 ---
 
@@ -218,216 +267,57 @@ print(compteur)  # Affiche : 1
 
 Une fonction peut s'appeler elle-même. C'est ce qu'on appelle la **récursivité**.
 
-### Exemple : Factorielle
-
-```Python
+[Python]
 def factorielle(n):
-    if n == 0:
-        return 1
-    return n * factorielle(n - 1)
+if n == 0:
+return 1
+return n \* factorielle(n - 1)
 
-print(factorielle(5))  # Affiche : 120
-```
+print(factorielle(5)) # Affiche : 120
 
 ---
 
 ## 🔢 Déballer les arguments avec `*` et `**`
 
-### Exemple avec `*` (pour des listes/tuples)
+### Exemple avec `*` pour des listes/tuples
 
-```Python
+[Python]
 def addition(a, b, c):
-    return a + b + c
+return a + b + c
 
 nombres = (1, 2, 3)
-print(addition(*nombres))  # Affiche : 6
-```
+print(addition(\*nombres)) # Affiche : 6
 
-### Exemple avec `**` (pour des dictionnaires)
+### Exemple avec `**` pour des dictionnaires
 
-```Python
+[Python]
 def afficher_infos(nom, age, ville):
-    print(f"Nom : {nom}, Âge : {age}, Ville : {ville}")
+print(f"Nom : {nom}, Âge : {age}, Ville : {ville}")
 
 infos = {"nom": "Mélanie", "age": 25, "ville": "Paris"}
-afficher_infos(**infos)
-```
+afficher_infos(\*\*infos)
 
 ---
 
-## 🛠️ Les décorateurs (Decorators)
-
-Un **décorateur** (en anglais, _decorator_) est une fonction spéciale qui permet de **modifier**, **étendre** ou **personnaliser** le comportement d'une autre fonction ou méthode, sans modifier directement son code.
-
-Les décorateurs sont souvent utilisés pour :
-
-1. **Ajouter des fonctionnalités** : Par exemple, enregistrer les appels à une fonction, mesurer son temps d'exécution, ou valider ses entrées.
-2. **Réutilisation du code** : Les décorateurs permettent d'appliquer une logique commune à plusieurs fonctions sans duplication de code.
-3. **Interopérabilité** : Dans des frameworks comme Django ou Flask, les décorateurs sont utilisés pour associer des routes, valider des requêtes ou gérer l'authentification.
-4. **Aspect-Oriented Programming (AOP)** : Ils permettent d’isoler des aspects transversaux (logging, sécurité, etc.) du code métier principal.
-
-### Exemple de base : Ajouter des messages avant et après l’exécution d’une fonction
-
-```Python
-def decorateur(fonction):
-    def wrapper():
-        print("Avant l'exécution")
-        fonction()
-        print("Après l'exécution")
-    return wrapper
-
-@decorateur
-def saluer():
-    print("Bonjour !")
-
-saluer()
-
-### Résultat
-Avant l'exécution
-Bonjour !
-Après l'exécution
-```
-
----
-
-### Quand utiliser un décorateur ?
-
-- **Mesurer la performance** d'une fonction (temps d'exécution, appels multiples, etc.).
-- **Enregistrer des logs** pour suivre les activités d'une fonction.
-- **Valider les paramètres** passés à une fonction avant son exécution.
-- **Gérer l'accès ou l'authentification** dans des applications Web.
-- **Transformer les résultats** renvoyés par une fonction (ex. : convertir une sortie brute en JSON).
-
----
-
-### Exemple pratique : Mesurer le temps d'exécution
-
-```Python
-import time
-
-def mesurer_temps(fonction):
-    def wrapper(*args, **kwargs):
-        debut = time.time()
-        resultat = fonction(*args, **kwargs)
-        fin = time.time()
-        print(f"Temps d'exécution de {fonction.__name__}: {fin - debut:.4f} secondes")
-        return resultat
-    return wrapper
-
-@mesurer_temps
-def calculer():
-    time.sleep(2)  # Simule une opération longue
-    print("Calcul terminé !")
-
-calculer()
-```
-
----
-
-### Exemple pratique : Valider les paramètres
-
-```Python
-def valider_entrees(fonction):
-    def wrapper(*args, **kwargs):
-        for valeur in args:
-            if not isinstance(valeur, int):
-                raise ValueError(f"Tous les paramètres doivent être des entiers ! (Reçu : {valeur})")
-        return fonction(*args, **kwargs)
-    return wrapper
-
-@valider_entrees
-def additionner(a, b):
-    return a + b
-
-print(additionner(5, 10))  # Affiche : 15
-# print(additionner(5, "10"))  # Erreur : Tous les paramètres doivent être des entiers !
-```
-
----
-
-### Exemple pratique : Ajouter une fonctionnalité de logging
-
-```Python
-def logger(fonction):
-    def wrapper(*args, **kwargs):
-        print(f"Appel de {fonction.__name__} avec les arguments {args} et {kwargs}")
-        resultat = fonction(*args, **kwargs)
-        print(f"Résultat : {resultat}")
-        return resultat
-    return wrapper
-
-@logger
-def multiplier(a, b):
-    return a * b
-
-multiplier(3, 5)
-```
-
----
-
-### Points importants à retenir
-
-1. **Syntaxe simplifiée avec `@`** :  
-   Utiliser `@decorateur` avant la définition d'une fonction est une manière concise d'appliquer un décorateur. Cela revient à écrire :
-
-   ```Python
-   saluer = decorateur(saluer)
-   ```
-
-2. **Flexibilité** :  
-   Les décorateurs peuvent être combinés en les empilant :
-
-   ```Python
-   @logger
-   @mesurer_temps
-   def exemple():
-       print("Fonction exécutée !")
-   ```
-
-3. **Utilisation avec des arguments** :  
-    Les décorateurs peuvent eux-mêmes accepter des arguments pour plus de flexibilité. Cela nécessite une **fonction génératrice de décorateurs**.
-
-   Exemple :
-
-   ```Python
-   def decorateur_avec_parametre(param):
-       def decorateur(fonction):
-           def wrapper(*args, **kwargs):
-               print(f"Décorateur avec paramètre : {param}")
-               return fonction(*args, **kwargs)
-           return wrapper
-       return decorateur
-
-   @decorateur_avec_parametre("Mon paramètre")
-   def exemple():
-       print("Fonction décorée")
-
-   exemple()
-   ```
-
-   Avec ces exemples, les décorateurs deviennent un outil puissant pour améliorer, personnaliser et organiser votre code Python. 🚀
-
----
-
-## Résumé des bonnes pratiques des fonctions
+## Résumé des bonnes pratiques
 
 1. **Nommez vos fonctions clairement** :
 
-   - Utilisez des noms descriptifs comme `calculer_somme()` au lieu de `cs()`.
+   - Utilisez des noms explicites comme `calculer_somme()`.
 
-2. **Gardez les fonctions courtes** :
+2. **Gardez vos fonctions courtes** :
 
-   - Une fonction doit idéalement faire une seule chose.
+   - Une fonction doit idéalement effectuer une seule tâche.
 
-3. **Utilisez des valeurs par défaut** pour les paramètres optionnels :
+3. **Documentez vos fonctions** :
+
+   - Ajoutez des docstrings pour expliquer leur rôle.
+
+4. **Utilisez des paramètres par défaut** :
 
    - Cela rend vos fonctions plus flexibles.
 
-4. **Documentez vos fonctions** :
-
-   - Ajoutez des commentaires ou des docstrings pour expliquer leur comportement.
-
 5. **Évitez les effets de bord** :
-   - Les fonctions ne doivent pas modifier des variables globales sans raison.
+   - Minimisez les modifications des variables globales à l'intérieur des fonctions.
 
-Avec ces concepts, vous êtes prêt à écrire des fonctions Python puissantes, réutilisables et élégantes ! 🚀
+Avec ces concepts, vous êtes prêt à écrire des fonctions Python robustes et réutilisables ! 🚀
